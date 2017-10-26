@@ -1,5 +1,5 @@
 {% if item.example.length > 0 %}
-  <h3 class="item__sub-heading">Example</h3>
+  <!--<h3 class="sb-item__sub-heading">Example</h3>-->
 
   {% for example in item.example %}
   <div class="item__example  example">

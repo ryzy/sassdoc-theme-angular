@@ -1,7 +1,7 @@
 {% if item.since.length > 1 %}
-  <h3 class="item__sub-heading">Changelog</h3>
+  <h5 class="sb-item__sub-heading">Changelog</h5>
 
-  <ul class="list-unstyled">
+  <ul class="sb-list-unstyled">
     {% for since in item.since %}
       <li>{{ since.version }}{% if since.description %} &mdash; {{ since.description|safe }}{% endif %}</li>
     {% endfor %}

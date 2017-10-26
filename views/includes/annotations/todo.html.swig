@@ -1,7 +1,7 @@
 {% if item.todo.length > 0 %}
-  <h3 class="item__sub-heading">TODO's</h3>
+  <h5 class="sb-item__sub-heading">TODO's</h5>
 
-  <ul class="list-unstyled">
+  <ul class="sb-list-unstyled">
     {% for todo in item.todo %}
       <li>{{ todo|safe }}</li>
     {% endfor %}

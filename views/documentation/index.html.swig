@@ -4,8 +4,8 @@
 
   {# No item documented #}
   {% if data.length == 0 %}
-    <section class="main__section">
-      <h2 class="main__heading">Seems like nothing has been documented yet!</h2>
+    <section class="sb-main__section">
+      <h2 class="sb-main__heading">Seems like nothing has been documented yet!</h2>
     </section>
 
   {# Some items documented #}
@@ -13,11 +13,10 @@
 
     {# Loop over the groups #}
     {% for group_name, group in data.byGroupAndType %}
-      <section class="main__section">
-        <h1 class="main__heading" id="{{ group_name }}">
-          <div class="container">
-            {{ groups[group_name] }}
-          </div>
+      <a name="{{ group_name }}"></a>
+      <section class="sb-main__section">
+        <h1 class="sb-main__heading">
+          {{ groups[group_name] }}
         </h1>
 
         {# Loop over the types #}
@@ -25,12 +24,14 @@
 
           {# If items to be displayed in type #}
           {% if items.length > 0 %}
-            <section class="main__sub-section" id="{{ group_name }}-{{ type }}">
-              <h2 class="main__heading--secondary">
-                <div class="container">
-                  {{ (type + 's') }}
-                </div>
-              </h2>
+            <a name="{{ group_name }}-{{ type }}"></a>
+            <section class="sb-main__sub-section">
+
+              <!--<h2 class="sb-main__heading---secondary">-->
+                <!--<div class="sb-container">-->
+                  <!--{{ (type + '(s)') }}-->
+                <!--</div>-->
+              <!--</h2>-->
 
               {# Loop over the items #}
               {% for item in items %}

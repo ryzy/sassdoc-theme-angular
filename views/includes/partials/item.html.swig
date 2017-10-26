@@ -1,10 +1,12 @@
-<section class="main__item  container  item{% if item.alias %}  item--alias{% endif %}{% if 'deprecated'|in(item) %}  item--deprecated{% endif %}" id="{{ group_name }}-{{ item.context.type }}-{{ item.context.name }}">
+<a name="{{ group_name }}-{{ item.context.type }}-{{ item.context.name }}"></a>
+
+<section class="sb-main__item sb-container sb-item{% if item.alias %} sb-item--alias{% endif %}{% if 'deprecated'|in(item) %} sb-item--deprecated{% endif %}">
 
 {% include '../annotations/name.html.swig' %}
 
-{% include '../annotations/deprecated.html.swig' %}
-
 {% include '../annotations/preview.html.swig' %}
+
+{% include '../annotations/deprecated.html.swig' %}
 
 {% if not item.alias %}
 
@@ -19,4 +21,5 @@
 
 {% endif %}
 
+  <hr />
 </section>

@@ -3,36 +3,37 @@ import { Promise } from 'es6-promise'
 import es6denodeify from 'es6-denodeify'
 import extend from 'extend'
 import fs from 'fs-extra'
-import { minify } from 'html-minifier'
 import path from 'path'
 import sassdocExtras from 'sassdoc-extras'
 import swig from './swig'
 
-const denodeify = es6denodeify(Promise)
-
-const copy = denodeify(fs.copy)
-const renderFile = denodeify(swig.renderFile)
-const writeFile = denodeify(fs.writeFile)
+const denodeify = es6denodeify(Promise);
+const renderFile = denodeify(swig.renderFile);
+const readFile = denodeify(fs.readFile);
+const writeFile = denodeify(fs.writeFile);
 
 const applyDefaults = ctx =>
   extend({}, def, ctx, {
     groups: extend(def.groups, ctx.groups),
     display: extend(def.display, ctx.display)
-  })
+  });
 
-const shortcutIcon = (dest, ctx) => {
-  if (!ctx.shortcutIcon) {
-    ctx.shortcutIcon = { type: 'internal', url: 'assets/images/favicon.png' }
-  } else if (ctx.shortcutIcon.type === 'internal') {
-    ctx.shortcutIcon.url = 'assets/images/' + ctx.shortcutIcon.url
-
-    return () =>
-      copy(ctx.shortcutIcon.path, path.resolve(dest, ctx.shortcutIcon.url))
-  }
+/**
+ * Escape chars which needs to be escaped in Angular's templates (e.g. curly braces characters)
+ */
+function ngSafeFilter(input, idx) {
+  // console.log('ngSafe', { input, idx });
+  return input.replace(/{/g, "&#123;")
+    .replace(/}/g, "&#125;")
+    .replace(/\|/g, "&#124;")
+    ;
 }
+ngSafeFilter.safe = true;
+swig.setFilter('ngSafe', ngSafeFilter);
 
-export default (dest, ctx) => {
-  ctx = applyDefaults(ctx)
+// Main theme function, to export as default
+function theme(dest, ctx) {
+  ctx = applyDefaults(ctx);
   sassdocExtras(ctx,
     'description',
     'markdown',
@@ -41,17 +42,13 @@ export default (dest, ctx) => {
     'shortcutIcon',
     'sort',
     'resolveVariables'
-  )
-  ctx.data.byGroupAndType = sassdocExtras.byGroupAndType(ctx.data)
+  );
+  ctx.data.byGroupAndType = sassdocExtras.byGroupAndType(ctx.data);
 
-  const index = path.resolve(__dirname, '../views/documentation/index.html.swig')
-
-  return Promise.all([
-    copy(path.resolve(__dirname, '../assets'), path.resolve(dest, 'assets'))
-      .then(shortcutIcon(dest, ctx)),
-
-    renderFile(index, ctx)
-      .then(html => minify(html, { collapseWhitespace: true }))
-      .then(html => writeFile(path.resolve(dest, 'index.html'), html))
-  ])
+  const index = path.resolve(__dirname, '../views/documentation/index.html.swig');
+  return renderFile(index, ctx)
+    .then(html => writeFile(path.resolve(dest, 'index.html'), html));
 }
+
+
+export default theme;

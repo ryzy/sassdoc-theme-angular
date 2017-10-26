@@ -1,7 +1,7 @@
 {% if description %}
-<section class="main__section">
-  <div class="container">
-    {{ description | raw }}
+<section class="sb-main__section">
+  <div class="sb-container">
+    {{ description | raw | ngSafe }}
   </div>
 </section>
 {% endif %}
