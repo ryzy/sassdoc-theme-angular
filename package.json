@@ -28,7 +28,7 @@
     "es6-denodeify": "^0.1.0",
     "es6-promise": "^4.0.5",
     "extend": "^3.0.0",
-    "fs-extra": "^2.0.0",
+    "fs-extra": "^4.0.2",
     "html-minifier": "^3.3.1",
     "sassdoc-extras": "^2.4.0",
     "swig": "1.4.0",
@@ -37,8 +37,8 @@
   "devDependencies": {
     "babel-cli": "^6.22.2",
     "babel-plugin-transform-runtime": "^6.22.0",
-    "babel-preset-latest": "^6.22.0",
-    "standard": "^8.6.0",
-    "uglify-js": "^2.4.15"
+    "babel-preset-env": "^1.6.1",
+    "standard": "^10.0.3",
+    "uglify-js": "^3.1.5"
   }
 }

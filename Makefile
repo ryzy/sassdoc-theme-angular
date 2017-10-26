@@ -12,8 +12,8 @@ lint:
 	standard $(SOURCES)
 
 dist:
-	rm -rf $@
-	babel src -d $@
+#	rm -rf $@
+	node_modules/.bin/babel src -d $@
 
 min: assets/js/main.min.js
 

@@ -1,9 +1,21 @@
 {
-  "presets": ["latest"],
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "chrome": "60"
+        }
+      }
+    ]
+  ],
   "plugins": [
-    ["transform-runtime", {
-      "polyfill": true,
-      "regenerator": true
-    }]
+    [
+      "transform-runtime",
+      {
+        "polyfill": true,
+        "regenerator": true
+      }
+    ]
   ]
 }
