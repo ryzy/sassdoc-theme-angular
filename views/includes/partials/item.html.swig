@@ -4,8 +4,6 @@
 
 {% include '../annotations/name.html.swig' %}
 
-{% include '../annotations/preview.html.swig' %}
-
 {% include '../annotations/deprecated.html.swig' %}
 
 {% if not item.alias %}
@@ -14,6 +12,8 @@
     {% set path = '../annotations/' + annotation + '.html.swig' %}
     {% include path %}
   {% endfor %}
+
+  {% include '../annotations/preview.html.swig' %}
 
 {% else %}
 

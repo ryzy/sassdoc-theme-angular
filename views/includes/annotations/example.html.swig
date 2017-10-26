@@ -2,11 +2,10 @@
   <!--<h3 class="sb-item__sub-heading">Example</h3>-->
 
   {% for example in item.example %}
-  <div class="item__example  example">
-    {% if example.description %}
-    <div class="example__description">{{ example.description|safe }}</div>
-    {% endif %}
-    <pre class="example__code  language-{{ example.type }}"><code>{{ example.code|escape|safe }}</code></pre>
-  </div>
+    <sb-example
+      description="{{ example.description }}"
+      language="{{ example.type }}"
+      code="{{ example.code | escape | ngSafe }}"
+    >{{ example.code | ngSafe }}</sb-example>
   {% endfor %}
 {% endif %}
