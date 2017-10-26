@@ -50,5 +50,38 @@ function theme(dest, ctx) {
     .then(html => writeFile(path.resolve(dest, 'index.html'), html));
 }
 
+//
+// Add custom annotations
+//
+theme.annotations = [
+  () => ({
+    name: 'exampleFile',
+    parse: function (filePath) {
+      return { filePath };
+    },
+    resolve: function (data) {
+      Object.entries(data)
+        .filter(([key, item]) => item.exampleFile && item.exampleFile.length)
+        .forEach(([key, item]) => {
+          const examples = item.example || [];
+
+          // TODO: support multiple instances of it?
+          const exampleFilePath = item.exampleFile[0].filePath;
+
+          readFile(exampleFilePath).then(
+            fileContent => {
+              examples.push({
+                type: 'markup',
+                code: fileContent.toString(),
+              });
+            },
+            e => console.error(e),
+          );
+
+          item.example = examples;
+        });
+    }
+  })
+];
 
 export default theme;
