@@ -1,5 +1,5 @@
 <h3 class="sb-item__heading">
-  <a class="sb-item__name" href="{{ basePath }}#{{ item.context.type }}-{{ item.context.name }}">{{ item.context.name }}</a>
+  <a class="sb-item__name" href="{{ basePath }}/{{ item.group }}#{{ item.context.type }}-{{ item.context.name }}">{{ item.context.name }}</a>
 
   <mat-chip-list>
     <mat-chip class="sb-item__type" color="accent" selected="true">{{ item.context.type }}</mat-chip>
@@ -8,17 +8,16 @@
     {% endif %}
   </mat-chip-list>
 
-
   {% if display.alias and item.aliased.length > 0 %}
     <span class="sb-item__aliased">(aliased as
     {% for alias in item.aliased %}
-      <a href="#{{ item.context.type }}-{{ alias }}"><code>{{ alias }}</code></a>
+      <a href="{{ basePath }}/{{ item.group }}#{{ item.context.type }}-{{ alias }}"><code>{{ alias }}</code></a>
     {% endfor %}
     )</span>
   {% endif %}
 
   {% if item.alias %}
-    <span class="sb-item__alias">(alias for <a href="#{{ item.context.type }}-{{ item.alias }}"><code>{{ item.alias }}</code></a>)</span>
+    <span class="sb-item__alias">(alias for <a href="{{ basePath }}/{{ item.group }}#{{ item.context.type }}-{{ item.alias }}"><code>{{ item.alias }}</code></a>)</span>
   {% endif %}
 </h3>
 

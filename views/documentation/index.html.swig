@@ -5,7 +5,7 @@
   {# No item documented #}
   {% if data.length == 0 %}
     <section class="sb-main__section">
-      <h2 class="sb-main__heading">Seems like nothing has been documented yet!</h2>
+      <!--<h2 class="sb-main__heading">Seems like nothing has been documented yet!</h2>-->
     </section>
 
   {# Some items documented #}
@@ -24,14 +24,14 @@
 
           {# If items to be displayed in type #}
           {% if items.length > 0 %}
-            <a name="{{ group_name }}-{{ type }}"></a>
-            <section class="sb-main__sub-section">
+            <a name="{{ type }}"></a>
 
-              <!--<h2 class="sb-main__heading---secondary">-->
+            <section class="sb-main__sub-section">
+              <h2 class="sb-main__heading---secondary">
                 <!--<div class="sb-container">-->
-                  <!--{{ (type + '(s)') }}-->
+                  {{ (type + '(s)') }}
                 <!--</div>-->
-              <!--</h2>-->
+              </h2>
 
               {# Loop over the items #}
               {% for item in items %}

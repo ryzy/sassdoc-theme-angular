@@ -9,7 +9,7 @@
     {% endif %}
 
     <li>
-      <a href="{{basePath}}#{{ see.context.type }}-{{ see.context.name }}"><code>{{ see.context.name }}</code></a>
+      <a href="{{ basePath }}/{{ see.group }}#{{ see.context.type }}-{{ see.context.name }}"><code>{{ see.context.name }}</code></a>
       <mat-chip-list class="sb-item__cross-type"><mat-chip>{{ see.context.type }}</mat-chip></mat-chip-list>
     </li>
   {% endif %}

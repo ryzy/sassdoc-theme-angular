@@ -1,4 +1,4 @@
-<a name="{{ group_name }}-{{ item.context.type }}-{{ item.context.name }}"></a>
+<a name="{{ item.context.type }}-{{ item.context.name }}"></a>
 
 <section class="sb-main__item sb-container sb-item{% if item.alias %} sb-item--alias{% endif %}{% if 'deprecated'|in(item) %} sb-item--deprecated{% endif %}">
 

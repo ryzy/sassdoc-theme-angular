@@ -43,11 +43,50 @@ function theme(dest, ctx) {
     'sort',
     'resolveVariables'
   );
+
   ctx.data.byGroupAndType = sassdocExtras.byGroupAndType(ctx.data);
 
+  // Override `byGroupAndType` order inside each group, so we start from css, placeholders and mixins, then the rest.
+  Object.keys(ctx.data.byGroupAndType).forEach(groupName => {
+    // Make sure items in each section are ordered according to these:
+    ctx.data.byGroupAndType[groupName] = Object.assign({
+      css: [],
+      placeholder: [],
+      mixin: [],
+    }, ctx.data.byGroupAndType[groupName]);
+  });
+
+  // Build `ctx` divided by each `@group` - so we can render them separately,
+  // each `@group` will go into its dedicated .html file.
+  const ctxByGroup = {
+    // One custom group, with description only (so: no data to render)
+    docs: Object.assign({}, ctx, { data: [] }),
+  };
+  Object.keys(ctx.groups).forEach(groupName => {
+    // Prepare data with items only from the specific group
+    const data = ctx.data.filter(item => {
+      // console.log('ITEM', item);
+      return item.group && item.group.indexOf(groupName) > -1;
+    });
+
+    if (!data.length) {
+      return; // no items in this group to render? exit...
+    }
+
+    // Also, data.byGroupAndType needs to be updated accordingly
+    data.byGroupAndType = {};
+    data.byGroupAndType[groupName] = ctx.data.byGroupAndType[groupName];
+
+    ctxByGroup[groupName] = Object.assign({}, ctx, { data, description: '' });
+  });
+
   const index = path.resolve(__dirname, '../views/documentation/index.html.swig');
-  return renderFile(index, ctx)
-    .then(html => writeFile(path.resolve(dest, 'index.html'), html));
+  const buildSteps = Object.keys(ctxByGroup)
+    .map(groupName => renderFile(index, ctxByGroup[groupName])
+        .then(content => writeFile(path.resolve(dest, `${groupName}.html`), content))
+    );
+
+  return Promise.all(buildSteps);
 }
 
 //

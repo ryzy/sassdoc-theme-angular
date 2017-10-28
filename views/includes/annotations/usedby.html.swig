@@ -11,7 +11,7 @@
     {% endif %}
 
     <li>
-      <a href="{{basePath}}#{{ usedBy.group }}-{{ usedBy.context.type }}-{{ usedBy.context.name }}"><code>{{ usedBy.context.name }}</code></a>
+      <a href="{{basePath}}/{{ usedBy.group }}#{{ usedBy.context.type }}-{{ usedBy.context.name }}"><code>{{ usedBy.context.name }}</code></a>
       <mat-chip-list class="sb-item__cross-type"><mat-chip>{{ usedBy.context.type }}</mat-chip></mat-chip-list>
     </li>
   {% endif %}

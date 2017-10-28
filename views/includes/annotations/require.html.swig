@@ -24,7 +24,7 @@
       </li>
     {% else %}
       <li class="sb-item__description  item__description--inline">
-        <a href="{{basePath}}#{{ require.item.group }}-{{ require.item.context.type }}-{{ require.item.context.name }}">{{ require.item.context.name }}</a>
+        <a href="{{basePath}}/{{ require.item.group }}#{{ require.item.context.type }}-{{ require.item.context.name }}">{{ require.item.context.name }}</a>
         <mat-chip-list class="sb-item__cross-type"><mat-chip>{{ require.item.context.type }}</mat-chip></mat-chip-list>
 
         {% if require.description %}
