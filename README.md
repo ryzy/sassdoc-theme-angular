@@ -26,7 +26,6 @@ Angular is a platform to build sophisticated apps. And these sophisticated apps 
 What we do here is we generate Angular-friendly .html output. These .html files are then picked by the Stylebook components, which are part of your app (unless you decide to built it as a separate app). Thus, entire SassDoc-generated documentation runs inside Angular context and your app.
 
 ---
----
 
 ## Usage
 
