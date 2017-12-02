@@ -1,27 +1,19 @@
 {
   "name": "sassdoc-theme-angular",
-  "description": "SassDoc's default theme",
-  "title": "SassDoc Default Theme",
-  "author": "SassDoc team",
-  "version": "2.6.1",
+  "description": "SassDoc theme for Angular projects. Based on SassDoc's default theme.",
+  "title": "SassDoc theme for Angular projects",
+  "author": "Marcin Ryzycki",
+  "version": "0.1.0",
   "keywords": [
-    "sassdoc-theme"
+    "sassdoc",
+    "sassdoc-theme",
+    "angular",
+    "material-design"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/SassDoc/sassdoc-theme-default.git"
+  "scripts": {
+    "build:theme": "babel src/ -d dist/"
   },
   "license": "MIT",
-  "files": [
-    "index.js",
-    "assets",
-    "views",
-    "dist",
-    "default.json",
-    "index.js",
-    "LICENSE.md",
-    "README.md"
-  ],
   "dependencies": {
     "babel-runtime": "^6.22.0",
     "chroma-js": "^1.2.2",
@@ -29,7 +21,6 @@
     "es6-promise": "^4.0.5",
     "extend": "^3.0.0",
     "fs-extra": "^4.0.2",
-    "html-minifier": "^3.3.1",
     "sassdoc-extras": "^2.4.0",
     "swig": "1.4.0",
     "swig-extras": "0.0.1"
@@ -37,8 +28,10 @@
   "devDependencies": {
     "babel-cli": "^6.22.2",
     "babel-plugin-transform-runtime": "^6.22.0",
-    "babel-preset-env": "^1.6.1",
-    "standard": "^10.0.3",
-    "uglify-js": "^3.1.5"
+    "babel-preset-env": "^1.6.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ryzy/sassdoc-theme-angular.git"
   }
 }

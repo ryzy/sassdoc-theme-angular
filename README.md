@@ -1,4 +1,5 @@
 # SassDoc theme for Angular
+[![CircleCI](https://circleci.com/gh/ryzy/sassdoc-theme-angular.svg?style=svg)](https://circleci.com/gh/ryzy/sassdoc-theme-angular)
 
 **WIP**
 
