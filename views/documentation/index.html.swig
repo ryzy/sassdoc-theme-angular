@@ -5,7 +5,7 @@
   {# No item documented #}
   {% if data.length == 0 %}
     <section class="sb-main__section">
-      <!--<h2 class="sb-main__heading">Seems like nothing has been documented yet!</h2>-->
+      <h2 class="sb-main__heading">Seems like nothing has been documented yet!</h2>
     </section>
 
   {# Some items documented #}

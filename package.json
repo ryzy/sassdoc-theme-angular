@@ -10,12 +10,13 @@
     "angular",
     "material-design"
   ],
+  "main": "dist/index.js",
   "scripts": {
-    "build:theme": "babel src/ -d dist/"
+    "build": "yarn build:theme",
+    "build:theme": "tsc -p tsconfig.json"
   },
   "license": "MIT",
   "dependencies": {
-    "babel-runtime": "^6.22.0",
     "chroma-js": "^1.2.2",
     "es6-denodeify": "^0.1.0",
     "es6-promise": "^4.0.5",
@@ -26,9 +27,8 @@
     "swig-extras": "0.0.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.22.2",
-    "babel-plugin-transform-runtime": "^6.22.0",
-    "babel-preset-env": "^1.6.1"
+    "@types/node": "8.0.52",
+    "typescript": "2.4.2"
   },
   "repository": {
     "type": "git",
