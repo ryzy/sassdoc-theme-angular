@@ -1,4 +1,4 @@
-{
+export const config = {
   "display": {
     "annotations": {
       "function": ["description", "parameter", "return", "example", "throw", "require", "usedby", "since", "see", "todo", "link", "author"],
@@ -14,4 +14,4 @@
   "groups": {
     "undefined": "General"
   }
-}
+};

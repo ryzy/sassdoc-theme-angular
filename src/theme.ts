@@ -1,21 +1,21 @@
-import def from '../default'
-import { Promise } from 'es6-promise'
-import es6denodeify from 'es6-denodeify'
-import extend from 'extend'
-import fs from 'fs-extra'
-import path from 'path'
-import sassdocExtras from 'sassdoc-extras'
-import swig from './swig'
+import { Promise } from 'es6-promise';
+import * as es6denodeify from 'es6-denodeify';
+import * as extend from 'extend';
+import * as fs from 'fs-extra';
+import * as path from 'path';
+import * as sassdocExtras from 'sassdoc-extras';
+import { swig } from './swig';
+import { config as defaultConfig } from './default-config';
 
-const denodeify = es6denodeify(Promise);
+const denodeify  = es6denodeify(Promise);
 const renderFile = denodeify(swig.renderFile);
-const readFile = denodeify(fs.readFile);
-const writeFile = denodeify(fs.writeFile);
+const readFile   = denodeify(fs.readFile);
+const writeFile  = denodeify(fs.writeFile);
 
 const applyDefaults = ctx =>
-  extend({}, def, ctx, {
-    groups: extend(def.groups, ctx.groups),
-    display: extend(def.display, ctx.display)
+  extend({}, defaultConfig, ctx, {
+    groups: extend(defaultConfig.groups, ctx.groups),
+    display: extend(defaultConfig.display, ctx.display),
   });
 
 /**
@@ -23,16 +23,17 @@ const applyDefaults = ctx =>
  */
 function ngSafeFilter(input, idx) {
   // console.log('ngSafe', { input, idx });
-  return input.replace(/{/g, "&#123;")
-    .replace(/}/g, "&#125;")
-    .replace(/\|/g, "&#124;")
+  return input.replace(/{/g, '&#123;')
+    .replace(/}/g, '&#125;')
+    .replace(/\|/g, '&#124;')
     ;
 }
-ngSafeFilter.safe = true;
+
+(ngSafeFilter as any).safe = true;
 swig.setFilter('ngSafe', ngSafeFilter);
 
 // Main theme function, to export as default
-function theme(dest, ctx) {
+export function theme(dest, ctx) {
   ctx = applyDefaults(ctx);
   sassdocExtras(ctx,
     'description',
@@ -41,7 +42,7 @@ function theme(dest, ctx) {
     'groupName',
     'shortcutIcon',
     'sort',
-    'resolveVariables'
+    'resolveVariables',
   );
 
   ctx.data.byGroupAndType = sassdocExtras.byGroupAndType(ctx.data);
@@ -49,11 +50,11 @@ function theme(dest, ctx) {
   // Override `byGroupAndType` order inside each group, so we start from css, placeholders and mixins, then the rest.
   Object.keys(ctx.data.byGroupAndType).forEach(groupName => {
     // Make sure items in each section are ordered according to these:
-    ctx.data.byGroupAndType[groupName] = Object.assign({
+    ctx.data.byGroupAndType[ groupName ] = Object.assign({
       css: [],
       placeholder: [],
       mixin: [],
-    }, ctx.data.byGroupAndType[groupName]);
+    }, ctx.data.byGroupAndType[ groupName ]);
   });
 
   // Build `ctx` divided by each `@group` - so we can render them separately,
@@ -74,16 +75,16 @@ function theme(dest, ctx) {
     }
 
     // Also, data.byGroupAndType needs to be updated accordingly
-    data.byGroupAndType = {};
-    data.byGroupAndType[groupName] = ctx.data.byGroupAndType[groupName];
+    data.byGroupAndType              = {};
+    data.byGroupAndType[ groupName ] = ctx.data.byGroupAndType[ groupName ];
 
-    ctxByGroup[groupName] = Object.assign({}, ctx, { data, description: '' });
+    ctxByGroup[ groupName ] = Object.assign({}, ctx, { data, description: '' });
   });
 
-  const index = path.resolve(__dirname, '../views/documentation/index.html.swig');
+  const index      = path.resolve(__dirname, '../views/documentation/index.html.swig');
   const buildSteps = Object.keys(ctxByGroup)
-    .map(groupName => renderFile(index, ctxByGroup[groupName])
-        .then(content => writeFile(path.resolve(dest, `${groupName}.html`), content))
+    .map(groupName => renderFile(index, ctxByGroup[ groupName ])
+      .then(content => writeFile(path.resolve(dest, `${groupName}.html`), content)),
     );
 
   return Promise.all(buildSteps);
@@ -92,7 +93,7 @@ function theme(dest, ctx) {
 //
 // Add custom annotations
 //
-theme.annotations = [
+(theme as any).annotations = [
   () => ({
     name: 'exampleFile',
     parse: function (filePath) {
@@ -100,12 +101,12 @@ theme.annotations = [
     },
     resolve: function (data) {
       Object.entries(data)
-        .filter(([key, item]) => item.exampleFile && item.exampleFile.length)
-        .forEach(([key, item]) => {
+        .filter(([ key, item ]) => item.exampleFile && item.exampleFile.length)
+        .forEach(([ key, item ]) => {
           const examples = item.example || [];
 
           // TODO: support multiple instances of it?
-          const exampleFilePath = item.exampleFile[0].filePath;
+          const exampleFilePath = item.exampleFile[ 0 ].filePath;
 
           readFile(exampleFilePath).then(
             fileContent => {
@@ -119,8 +120,8 @@ theme.annotations = [
 
           item.example = examples;
         });
-    }
-  })
+    },
+  }),
 ];
 
-export default theme;
+// export = theme;

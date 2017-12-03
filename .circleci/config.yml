@@ -11,4 +11,4 @@ jobs:
           command: yarn
       - run:
           name: Build theme
-          command: yarn build:theme
+          command: yarn build
